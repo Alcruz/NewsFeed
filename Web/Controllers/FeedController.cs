@@ -20,6 +20,33 @@ namespace ModusCreate.NewsFeed.Web.Controllers
 			this.feedService = feedService;
 		}
 
+		[HttpGet("{subscriptionId}")]
+		public async Task<IActionResult> Get(int subscriptionId)
+		{
+			var subscription = await this.feedService.GetSubscription(subscriptionId);
+			if (subscription == null)
+			{
+				return NotFound();
+			}
+
+			var feed = await Feed.CreateFromUrl(subscription.FeedUrl);
+			return Ok(FeedModel.Map(feed));
+		}
+
+		[HttpGet("{subscriptionId}/entries")]
+		public async Task<IActionResult> GetEntries(int subscriptionId)
+		{
+			var subscription = await this.feedService.GetSubscription(subscriptionId);
+			if (subscription == null)
+			{
+				return NotFound();
+			}
+
+			var feed = await Feed.CreateFromUrl(subscription.FeedUrl);
+			return Ok(feed.Entries);
+		}
+
+
 		[HttpGet("subscriptions")]
 		public async Task<IEnumerable<FeedSubscriptionModel>> GetSubscriptions()
 		{

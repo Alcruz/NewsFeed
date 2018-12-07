@@ -39,7 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\common\feed-entry.model.ts" />
     <None Remove="ClientApp\src\app\common\feed-subscription.model.ts" />
+    <None Remove="ClientApp\src\app\common\feed.model.ts" />
     <None Remove="ClientApp\src\app\feed-subscription\feed-subscription.component.ts" />
     <None Remove="ClientApp\src\app\home\feed.service.ts" />
   </ItemGroup>
@@ -50,6 +52,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\common\feed-entry.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\common\feed.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\common\feed.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\common\feed-subscription.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\feed-subscription\feed-subscription.component.ts" />

@@ -32,6 +32,12 @@ namespace ModusCreate.NewsFeed.Web.Controllers
 			return Ok(FeedModel.Map(subscription.Feed));
 		}
 
+		[HttpGet("entries")]
+		public async Task<IActionResult> GetEntries()
+		{
+			return Ok(await this.feedService.GetAllFeedEntries());
+		}
+
 		[HttpGet("{subscriptionId}/entries")]
 		public async Task<IActionResult> GetEntries(int subscriptionId)
 		{

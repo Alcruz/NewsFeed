@@ -1,0 +1,15 @@
+<div class="list-group">
+  <div *ngFor="let entry of entries" class="list-group-item">
+    <h4 class="list-group-item-heading">{{entry.title}}</h4>
+    <p class="list-group-item-text" [innerHtml]="entry.summary"></p>
+
+    <div class="row">
+      <div class="col-md-2">
+        <a target="_blank" [href]="entry.id">Read More</a>
+      </div>
+      <div class="col-md-3">
+        {{entry.publishDate}}
+      </div>
+    </div>
+  </div>
+</div>

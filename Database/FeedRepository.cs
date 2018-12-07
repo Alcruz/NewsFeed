@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ModusCreate.NewsFeed.Domain;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,8 +36,21 @@ namespace ModusCreate.NewsFeed.Database
 		}
 		public async Task UpdateFeedEntries(List<FeedEntry> entries)
 		{
-			this.dbContext.FeedEntries.UpdateRange(entries);
-			await this.dbContext.SaveChangesAsync();
+			try
+			{
+				this.dbContext.FeedEntries.UpdateRange(entries);
+				await this.dbContext.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException ex)
+			{
+				foreach (var data in ex.Entries)
+					data.OriginalValues.SetValues(data.GetDatabaseValues());
+			}
+		}
+
+		public async Task<IEnumerable<FeedEntry>> GetAllEntires()
+		{
+			return await this.dbContext.FeedEntries.OrderBy(fe => fe.FeedId).OrderByDescending(fe => fe.PublishDate).ToListAsync();
 		}
 	}
 }

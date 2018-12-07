@@ -30,4 +30,8 @@ export class FeedService {
   public getEntries(id: number) {
     return this.httpClient.get<Array<FeedEntry>>(`api/feeds/${id}/entries`);
   }
+
+  public getAllEntries() {
+    return this.httpClient.get<Array<FeedEntry>>(`api/feeds/entries`);
+  }
 }

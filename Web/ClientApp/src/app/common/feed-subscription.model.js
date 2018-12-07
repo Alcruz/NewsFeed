@@ -6,4 +6,4 @@ var FeedSubscription = /** @class */ (function () {
     return FeedSubscription;
 }());
 exports.FeedSubscription = FeedSubscription;
-//# sourceMappingURL=subscription.model.js.map
+//# sourceMappingURL=feed-subscription.model.js.map

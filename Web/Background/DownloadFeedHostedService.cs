@@ -21,7 +21,9 @@ namespace ModusCreate.NewsFeed.Web.Background
 
 		public Task StartAsync(CancellationToken cancellationToken)
 		{
-			this.timer = new Timer(async state => await DoWork(), null, TimeSpan.Zero, TimeSpan.FromMinutes(2));
+			if (timer != null)
+				this.timer = new Timer(async state => await DoWork(), null, TimeSpan.Zero, TimeSpan.FromMinutes(2));
+
 			return Task.CompletedTask;
 		}
 

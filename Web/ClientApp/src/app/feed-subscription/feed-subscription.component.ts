@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../common/feed.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Feed } from '../common/feed.model';
 import { FeedEntry } from '../common/feed-entry.model';
+import { switchMap } from 'rxjs/operators/switchMap'
+
 
 @Component({
   selector: 'app-feed-subscription',
@@ -18,11 +20,15 @@ export class FeedSubscriptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = parseInt(this.route.snapshot.paramMap.get('id') || '');
-    this.feedService.get(this.id)
-      .subscribe(feed => this.feed = feed);
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        this.feedService.get(parseInt(params.get('id'))))
+    ).subscribe(feed => this.feed = feed);
 
-    this.feedService.getEntries(this.id)
-      .subscribe(entries => this.entries = entries);
+
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        this.feedService.getEntries(parseInt(params.get('id'))))
+    ).subscribe(entries => this.entries = entries);
   }
 }

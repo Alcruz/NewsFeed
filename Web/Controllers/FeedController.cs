@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModusCreate.NewsFeed.Domain;
 using ModusCreate.NewsFeed.Service;
 using ModusCreate.NewsFeed.Web.Models;
 
-namespace Web.Controllers
+namespace ModusCreate.NewsFeed.Web.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
@@ -19,6 +18,12 @@ namespace Web.Controllers
 		public FeedsController(FeedService feedService)
 		{
 			this.feedService = feedService;
+		}
+
+		[HttpGet("subscriptions")]
+		public async Task<IEnumerable<FeedSubscriptionModel>> GetSubscriptions(string subscriptionId)
+		{
+			return (await this.feedService.GetAll()).Select(FeedSubscriptionModel.Map);
 		}
 
 		[HttpGet("subscriptions/{subscriptionId}")]

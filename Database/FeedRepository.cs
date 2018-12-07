@@ -1,5 +1,7 @@
-﻿using ModusCreate.NewsFeed.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using ModusCreate.NewsFeed.Domain;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ModusCreate.NewsFeed.Database
@@ -21,5 +23,7 @@ namespace ModusCreate.NewsFeed.Database
 			this.dbContext.FeedSubscriptions.Add(feedSubscription);
 			await this.dbContext.SaveChangesAsync();
 		}
+
+		public async Task<IEnumerable<FeedSubscription>> GetAll() => await this.dbContext.FeedSubscriptions.ToListAsync();
 	}
 }

@@ -1,11 +1,8 @@
 ﻿using ModusCreate.NewsFeed.Database;
 using ModusCreate.NewsFeed.Domain;
 using System;
-using System.IO;
-using System.Net.Http;
-using System.ServiceModel.Syndication;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace ModusCreate.NewsFeed.Service
 {
@@ -33,5 +30,7 @@ namespace ModusCreate.NewsFeed.Service
 
 			return subscription;
 		}
+
+		public async Task<IEnumerable<FeedSubscription>> GetAll() => await this.feedRepository.GetAll();
 	}
 }

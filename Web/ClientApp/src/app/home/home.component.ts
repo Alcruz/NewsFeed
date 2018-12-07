@@ -24,8 +24,11 @@ export class HomeComponent implements OnInit {
   subscribe() {
     this.feedService.subscribe(this.feedEntry)
       .subscribe(
-      _ => this.toastr.success('News Feed Added Successfully', 'Add News Feed'),
-      errResponse => this.toastr.error('Error Adding News Fead. Reason: ' + errResponse.error.error, 'Add News Feed')
+        _ => {
+          this.toastr.success('News Feed Added Successfully', 'Add News Feed');
+          this.feedService.refrehsData();
+        },
+        errResponse => this.toastr.error('Error Adding News Fead. Reason: ' + errResponse.error.error, 'Add News Feed')
       );
   }
 }

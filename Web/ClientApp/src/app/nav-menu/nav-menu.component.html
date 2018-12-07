@@ -19,7 +19,7 @@
                 </li>
                 <li *ngFor="let subscription of subscriptions" [routerLinkActive]='["link-active"]'>
                     <a [routerLink]='["/subscription", subscription.id]'>
-                       {{subscription.title}}
+                        <span class='glyphicon glyphicon-list-alt'></span> {{subscription.title}}
                     </a>
                 </li>
             </ul>

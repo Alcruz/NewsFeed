@@ -29,8 +29,7 @@ namespace ModusCreate.NewsFeed.Web.Controllers
 				return NotFound();
 			}
 
-			var feed = await Feed.CreateFromUrl(subscription.FeedUrl);
-			return Ok(FeedModel.Map(feed));
+			return Ok(FeedModel.Map(subscription.Feed));
 		}
 
 		[HttpGet("{subscriptionId}/entries")]
@@ -42,8 +41,7 @@ namespace ModusCreate.NewsFeed.Web.Controllers
 				return NotFound();
 			}
 
-			var feed = await Feed.CreateFromUrl(subscription.FeedUrl);
-			return Ok(feed.Entries);
+			return Ok(subscription.Feed.Entries);
 		}
 
 

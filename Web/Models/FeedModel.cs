@@ -12,9 +12,9 @@ namespace ModusCreate.NewsFeed.Web.Models
 		public string FeedUrl { get; set; }
 		public string Title { get; set; }
 		public string Description { get; set; }
-		public Uri ImageUrl { get; set; }
+		public string ImageUrl { get; set; }
 
-		internal static FeedModel Map(Feed feed)
+		internal static FeedModel Map(IFeed feed)
 		{
 			return new FeedModel
 			{

@@ -24,8 +24,19 @@ namespace ModusCreate.NewsFeed.Database
 			await this.dbContext.SaveChangesAsync();
 		}
 
-		public async Task<IEnumerable<FeedSubscription>> GetAll() => await this.dbContext.FeedSubscriptions.ToListAsync();
+		public async Task<IEnumerable<FeedSubscription>> GetAll() => await this.dbContext.FeedSubscriptions.Include(fs => fs.Feed).ToListAsync();
 
-		public async Task<FeedSubscription> Find(int id) => await this.dbContext.FeedSubscriptions.FindAsync(id);
+		public async Task<FeedSubscription> Find(int id)
+		{
+			var subscription = await this.dbContext.FeedSubscriptions.FindAsync(id);
+			await this.dbContext.Entry(subscription).Reference(s => s.Feed).LoadAsync();
+			await this.dbContext.Entry(subscription.Feed).Collection(p => p.Entries).LoadAsync();
+			return subscription;
+		}
+		public async Task UpdateFeedEntries(List<FeedEntry> entries)
+		{
+			this.dbContext.FeedEntries.UpdateRange(entries);
+			await this.dbContext.SaveChangesAsync();
+		}
 	}
 }

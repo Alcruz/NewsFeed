@@ -11,5 +11,6 @@ namespace ModusCreate.NewsFeed.Domain
 		public int Id { get; set; }
 		public string Title { get; set; }
 		public string FeedUrl { get; set; }
+		public Feed Feed { get; set; }
 	}
 }

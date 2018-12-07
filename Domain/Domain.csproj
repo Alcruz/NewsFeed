@@ -43,8 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Feed.cs" />
+    <Compile Include="RssFeed.cs" />
     <Compile Include="FeedEntry.cs" />
     <Compile Include="FeedSubscription.cs" />
+    <Compile Include="IFeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

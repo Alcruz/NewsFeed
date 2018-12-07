@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ModusCreate.NewsFeed.Database;
 using ModusCreate.NewsFeed.Domain;
 using ModusCreate.NewsFeed.Service;
+using ModusCreate.NewsFeed.Web.Background;
 
 namespace ModusCreate.NewsFeed.Web
 {
@@ -33,6 +34,8 @@ namespace ModusCreate.NewsFeed.Web
 
 			DatabaseModule.Register(services, Configuration.GetConnectionString("DefaultConnection"), GetType().Assembly.FullName);
 			ServiceModule.Register(services);
+
+			services.AddHostedService<DownloadFeedHostedService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\common\feed-subscription.model.ts" />
+    <None Remove="ClientApp\src\app\feed-subscription\feed-subscription.component.ts" />
     <None Remove="ClientApp\src\app\home\feed.service.ts" />
   </ItemGroup>
 
@@ -51,6 +52,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\common\feed.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\common\feed-subscription.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\feed-subscription\feed-subscription.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

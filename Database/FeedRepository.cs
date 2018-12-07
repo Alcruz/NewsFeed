@@ -25,5 +25,7 @@ namespace ModusCreate.NewsFeed.Database
 		}
 
 		public async Task<IEnumerable<FeedSubscription>> GetAll() => await this.dbContext.FeedSubscriptions.ToListAsync();
+
+		public async Task<FeedSubscription> Find(int id) => await this.dbContext.FeedSubscriptions.FindAsync(id);
 	}
 }

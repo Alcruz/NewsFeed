@@ -18,7 +18,7 @@
                     </a>
                 </li>
                 <li *ngFor="let subscription of subscriptions" [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/counter"]' (click)='collapse()'>
+                    <a [routerLink]='["/subscription", subscription.id]'>
                        {{subscription.title}}
                     </a>
                 </li>

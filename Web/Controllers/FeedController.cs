@@ -21,15 +21,21 @@ namespace ModusCreate.NewsFeed.Web.Controllers
 		}
 
 		[HttpGet("subscriptions")]
-		public async Task<IEnumerable<FeedSubscriptionModel>> GetSubscriptions(string subscriptionId)
+		public async Task<IEnumerable<FeedSubscriptionModel>> GetSubscriptions()
 		{
 			return (await this.feedService.GetAll()).Select(FeedSubscriptionModel.Map);
 		}
 
-		[HttpGet("subscriptions/{subscriptionId}")]
-		public Task GetSubscription(string subscriptionId)
+		[HttpGet("subscriptions/{subscriptionId:int}")]
+		public async Task<IActionResult> GetSubscription(int subscriptionId)
 		{
-			return Task.CompletedTask;
+			var subscription = await this.feedService.GetSubscription(subscriptionId);
+			if (subscription == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(FeedSubscriptionModel.Map(subscription));
 		}
 
 		[HttpPost("subscribe")]

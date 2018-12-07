@@ -32,5 +32,7 @@ namespace ModusCreate.NewsFeed.Service
 		}
 
 		public async Task<IEnumerable<FeedSubscription>> GetAll() => await this.feedRepository.GetAll();
+
+		public async Task<FeedSubscription> GetSubscription(int id) => await this.feedRepository.Find(id);
 	}
 }

@@ -19,9 +19,9 @@ namespace ModusCreate.NewsFeed.Domain
 		}
 
 		public string FeedUrl { get; }
-		public string Title => this.feed.Title.Text;
-		public string Description => this.feed.Description.Text;
-		public string ImageUrl => this.feed.ImageUrl.ToString();
+		public string Title => this.feed.Title?.Text?? string.Empty;
+		public string Description => this.feed.Description?.Text?? string.Empty;
+		public string ImageUrl => this.feed.ImageUrl?.ToString()?? string.Empty;
 
 		public List<FeedEntry> Entries => GetEntries().ToList();
 

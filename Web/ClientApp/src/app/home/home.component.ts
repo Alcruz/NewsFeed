@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../common/feed.service';
 import { FeedEntry } from '../common/feed-entry.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   entries: Array<FeedEntry> = [];
   feedEntry: string = '';
 
-  constructor(private feedService: FeedService) {
+  constructor(private feedService: FeedService, private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -22,7 +23,9 @@ export class HomeComponent implements OnInit {
 
   subscribe() {
     this.feedService.subscribe(this.feedEntry)
-      .subscribe(_ => console.log("adding new feed"));
-
+      .subscribe(
+      _ => this.toastr.success('News Feed Added Successfully', 'Add News Feed'),
+      errResponse => this.toastr.error('Error Adding News Fead. Reason: ' + errResponse.error.error, 'Add News Feed')
+      );
   }
 }

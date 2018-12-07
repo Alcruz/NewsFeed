@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ModusCreate.NewsFeed.Domain
 {
-    public class Class1
+    public class FeedSubscription
     {
-    }
+		public int Id { get; set; }
+		public string Title { get; set; }
+		public string FeedUrl { get; set; }
+	}
 }

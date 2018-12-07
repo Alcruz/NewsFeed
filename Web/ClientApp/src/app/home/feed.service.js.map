@@ -1,0 +1,1 @@
+{"version":3,"file":"feed.service.js","sourceRoot":"","sources":["feed.service.ts"],"names":[],"mappings":";;AAEA;IACE,qBAAoB,UAAsB;QAAtB,eAAU,GAAV,UAAU,CAAY;IAC1C,CAAC;IAED,+BAAS,GAAT,UAAU,YAAoB;QAC5B,OAAO,IAAI,CAAC,UAAU,CAAC,IAAI,CAAC,qBAAqB,EAAE;YACjD,YAAY,cAAA;SACb,CAAC,CAAC;IACL,CAAC;IACH,kBAAC;AAAD,CAAC,AATD,IASC;AATY,kCAAW"}

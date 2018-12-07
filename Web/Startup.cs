@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ModusCreate.NewsFeed.Database;
+using ModusCreate.NewsFeed.Domain;
+using ModusCreate.NewsFeed.Service;
 
 namespace ModusCreate.NewsFeed.Web
 {
@@ -27,6 +30,9 @@ namespace ModusCreate.NewsFeed.Web
 			{
 				configuration.RootPath = "ClientApp/dist";
 			});
+
+			DatabaseModule.Register(services, Configuration.GetConnectionString("DefaultConnection"), GetType().Assembly.FullName);
+			ServiceModule.Register(services);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,6 +10,7 @@ using ModusCreate.NewsFeed.Database;
 using ModusCreate.NewsFeed.Domain;
 using ModusCreate.NewsFeed.Service;
 using ModusCreate.NewsFeed.Web.Background;
+using System.Linq;
 
 namespace ModusCreate.NewsFeed.Web
 {
@@ -88,6 +89,14 @@ namespace ModusCreate.NewsFeed.Web
 				using (var context = serviceScope.ServiceProvider.GetService<AppDbContext>())
 				{
 					context.Database.Migrate();
+					if (context.FeedSubscriptions.Any())
+						return;
+
+					var feed1 = RssFeed.CreateFromUrl("http://newsrss.bbc.co.uk/rss/newsonline_world_edition/americas/rss.xml").GetAwaiter().GetResult().SubscribeTo();
+					var feed2 = RssFeed.CreateFromUrl("https://www.ed.gov/feed").GetAwaiter().GetResult().SubscribeTo();
+					var feed3 = RssFeed.CreateFromUrl("http://feeds1.nytimes.com/nyt/rss/Sports").GetAwaiter().GetResult().SubscribeTo();
+					context.FeedSubscriptions.AddRange(new[] { feed1, feed2, feed3 });
+					context.SaveChanges();
 				}
 			}
 		}

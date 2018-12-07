@@ -19,9 +19,9 @@ namespace ModusCreate.NewsFeed.Domain
 		}
 
 		public string FeedUrl { get; }
-		public string Title => this.feed.Title?.Text?? string.Empty;
-		public string Description => this.feed.Description?.Text?? string.Empty;
-		public string ImageUrl => this.feed.ImageUrl?.ToString()?? string.Empty;
+		public string Title => this.feed.Title?.Text ?? string.Empty;
+		public string Description => this.feed.Description?.Text ?? string.Empty;
+		public string ImageUrl => this.feed.ImageUrl?.ToString() ?? string.Empty;
 
 		public List<FeedEntry> Entries => GetEntries().ToList();
 
@@ -62,10 +62,12 @@ namespace ModusCreate.NewsFeed.Domain
 		{
 			return new FeedSubscription
 			{
+				Id = 0,
 				Title = Title,
 				FeedUrl = FeedUrl,
 				Feed = new Feed
 				{
+					Id = 0,
 					Title = Title,
 					Description = Description,
 					ImageUrl = ImageUrl,
@@ -81,8 +83,8 @@ namespace ModusCreate.NewsFeed.Domain
 			{
 				Id = item.Id,
 				FeedId = 0,
-				Title = item.Title.Text,
-				Summary = item.Summary.Text,
+				Title = item.Title?.Text,
+				Summary = item.Summary?.Text,
 				PublishDate = item.PublishDate,
 				LastUpdatedTime = item.LastUpdatedTime
 			}).Distinct();

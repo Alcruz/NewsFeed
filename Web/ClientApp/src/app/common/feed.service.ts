@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FeedSubscription } from "./feed-subscription.model";
 import { Feed } from "./feed.model";
@@ -13,7 +13,7 @@ export class FeedService {
   constructor(private httpClient: HttpClient) {
     this.subscriptionsSubject = new BehaviorSubject<Array<FeedSubscription>>([]);
     this.entriesSubject = new BehaviorSubject<Array<FeedEntry>>([]);
-  } 
+  }
 
   public subscribe(feedEntryUrl: string) {
     return this.httpClient.post("api/feeds/subscribe", {
@@ -34,8 +34,14 @@ export class FeedService {
     return this.httpClient.get<Feed>(`api/feeds/${id}`);
   }
 
-  public getEntries(id: number) {
-    return this.httpClient.get<Array<FeedEntry>>(`api/feeds/${id}/entries`);
+  public getEntries(id: number, searchTitle: string = null) {
+    let params = new HttpParams();
+    if (searchTitle)
+      params = params.set('searchTitle', searchTitle);
+
+    return this.httpClient.get<Array<FeedEntry>>(`api/feeds/${id}/entries`, {
+      params: params
+    });
   }
 
   public getAllEntries() {

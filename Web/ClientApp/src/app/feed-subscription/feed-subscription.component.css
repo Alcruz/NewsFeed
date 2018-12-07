@@ -1,3 +1,7 @@
 .list-group-item-text {
   margin: 12px 0 12px 0;
 }
+
+.search-feed-entry {
+  height: 46px;
+}

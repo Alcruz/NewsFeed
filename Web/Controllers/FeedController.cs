@@ -39,7 +39,7 @@ namespace ModusCreate.NewsFeed.Web.Controllers
 		}
 
 		[HttpGet("{subscriptionId}/entries")]
-		public async Task<IActionResult> GetEntries(int subscriptionId)
+		public async Task<IActionResult> GetEntries(int subscriptionId, string searchTitle)
 		{
 			var subscription = await this.feedService.GetSubscription(subscriptionId);
 			if (subscription == null)
@@ -47,14 +47,20 @@ namespace ModusCreate.NewsFeed.Web.Controllers
 				return NotFound();
 			}
 
-			return Ok(subscription.Feed.Entries);
+			IEnumerable<FeedEntry> entries = subscription.Feed.Entries;
+			if (!string.IsNullOrWhiteSpace(searchTitle))
+			{
+				entries = entries.Where(fe => fe.Title.Contains(searchTitle));
+			}
+
+			return Ok(entries);
 		}
 
 
 		[HttpGet("subscriptions")]
 		public async Task<IEnumerable<FeedSubscriptionModel>> GetSubscriptions()
 		{
-			return (await this.feedService.GetAll()).Select(FeedSubscriptionModel.Map);
+			return (await this.feedService.GetAll()).OrderBy(s => s.Title).Select(FeedSubscriptionModel.Map);
 		}
 
 		[HttpGet("subscriptions/{subscriptionId:int}")]

@@ -14,6 +14,7 @@ import { switchMap } from 'rxjs/operators/switchMap'
 export class FeedSubscriptionComponent implements OnInit {
   id: number;
   feed: Feed;
+  searchTitle: string;
   entries: Array<FeedEntry> = [];
 
   constructor(private feedService: FeedService, private route: ActivatedRoute) {
@@ -30,5 +31,11 @@ export class FeedSubscriptionComponent implements OnInit {
       switchMap((params: ParamMap) =>
         this.feedService.getEntries(parseInt(params.get('id'))))
     ).subscribe(entries => this.entries = entries);
+  }
+
+  search() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.feedService.getEntries(parseInt(id), this.searchTitle)
+      .subscribe(entries => this.entries = entries);
   }
 }

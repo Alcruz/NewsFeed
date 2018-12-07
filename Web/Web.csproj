@@ -12,6 +12,7 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <AssemblyName>ModusCreate.NewsFeed.Web</AssemblyName>
     <RootNamespace>ModusCreate.NewsFeed.Web</RootNamespace>
+    <StartupObject>ModusCreate.NewsFeed.Web.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

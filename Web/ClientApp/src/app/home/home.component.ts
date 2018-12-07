@@ -12,7 +12,8 @@ export class HomeComponent {
   constructor(private feedService: FeedService) {
   }
 
-  addFeedEntry() {
-    this.feedService.subscribe(this.feedEntry);
+  subscribe() {
+    this.feedService.subscribe(this.feedEntry)
+      .subscribe(_ => console.log("adding new feed"));
   }
 }

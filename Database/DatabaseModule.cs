@@ -9,6 +9,8 @@ namespace ModusCreate.NewsFeed.Database
 		{
 			services.AddDbContext<AppDbContext>(options =>
 					options.UseSqlServer(connection, builder => builder.MigrationsAssembly(migrationsAssembly)));
+
+			services.AddScoped<FeedRepository>();
 		}
 	}
 }

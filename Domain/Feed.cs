@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Net.Http;
 using System.ServiceModel.Syndication;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace ModusCreate.NewsFeed.Domain
@@ -8,21 +11,21 @@ namespace ModusCreate.NewsFeed.Domain
 	{
 		private SyndicationFeed feed;
 
-		public Feed(string feedUrl)
+		private Feed(string feedUrl, SyndicationFeed feed)
 		{
 			FeedUrl = feedUrl;
-			this.feed = ParseFeed(feedUrl);
+			this.feed = feed;
 		}
 
 		public string FeedUrl { get; }
 
-		public string Title => this.Title;
+		public string Title => this.feed.Title.Text;
 
-		public static bool IsValid(string feedUrl)
+		public static async Task<bool> IsValid(string feedUrl)
 		{
 			try
 			{
-				ParseFeed(feedUrl);
+				await ParseFeed(feedUrl);
 				return true;
 			}
 			catch
@@ -31,9 +34,14 @@ namespace ModusCreate.NewsFeed.Domain
 			}
 		}
 
-		private static SyndicationFeed ParseFeed(string feedUrl)
+		public static async Task<Feed> CreateFeedFromUrl(string feedUrl) => new Feed(feedUrl, await ParseFeed(feedUrl));
+
+		private static async Task<SyndicationFeed> ParseFeed(string feedUrl)
 		{
-			using (XmlReader reader = XmlReader.Create(feedUrl))
+			var httpClient = new HttpClient();
+			var response = await httpClient.GetAsync(feedUrl);
+
+			using (XmlReader reader = XmlReader.Create(await response.Content.ReadAsStreamAsync()))
 			{
 				return SyndicationFeed.Load(reader);
 			}

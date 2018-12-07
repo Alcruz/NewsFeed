@@ -23,10 +23,10 @@ namespace ModusCreate.NewsFeed.Service
 			if (feedUrl == null)
 				throw new ArgumentNullException(nameof(feedUrl));
 
-			if (Feed.IsValid(feedUrl))
+			if (!await Feed.IsValid(feedUrl))
 				throw new FeedException("Invalid feed url or feed content is not supported");
 
-			var feed = new Feed(feedUrl);
+			var feed = await Feed.CreateFeedFromUrl(feedUrl);
 			var subscription = feed.SubscribeTo();
 
 			await feedRepository.AddSubscription(subscription);

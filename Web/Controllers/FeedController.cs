@@ -12,11 +12,11 @@ namespace Web.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class FeedController : ControllerBase
+	public class FeedsController : ControllerBase
 	{
 		private readonly FeedService feedService;
 
-		public FeedController(FeedService feedService)
+		public FeedsController(FeedService feedService)
 		{
 			this.feedService = feedService;
 		}

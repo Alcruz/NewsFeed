@@ -29,4 +29,22 @@ export class NavMenuComponent implements OnInit {
   getAllEntries() {
     return this.feedService.getSubscriptions();
   }
+
+  changeIcon($event) {
+    if ($event.type === 'mouseover') {
+      $event.currentTarget.children[0].classList.remove('glyphicon-list-alt');
+      $event.currentTarget.children[0].classList.add('glyphicon-remove');
+    } else {
+      $event.currentTarget.children[0].classList.remove('glyphicon-remove');
+      $event.currentTarget.children[0].classList.add('glyphicon-list-alt');
+    }
+  }
+
+  remove(id, event) {
+    let confirmation = confirm("Are you sure you want to delete this?");
+    if (confirmation) {
+      this.feedService.remove(id).subscribe(f => console.log(f));
+      this.getAllEntries().subscribe(subscriptions => this.subscriptions = subscriptions);
+    }
+  }
 }

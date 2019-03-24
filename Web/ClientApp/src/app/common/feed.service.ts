@@ -62,4 +62,10 @@ export class FeedService {
     return this.httpClient.get<Array<FeedEntry>>(`api/feeds/entries`)
       .subscribe(entries => this.entriesSubject.next(entries), error => this.entriesSubject.error(error));
   }
+
+  public remove(id: number) {
+    return this.httpClient.delete(`api/feeds/delete/${id}`, {
+    });
+
+  }
 }

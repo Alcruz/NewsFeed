@@ -8,7 +8,7 @@
         <a target="_blank" [href]="entry.id">Read More</a>
       </div>
       <div class="col-md-3">
-        {{entry.publishDate}}
+        {{entry.publishDate | date:'medium'}}
       </div>
     </div>
   </div>

@@ -52,5 +52,12 @@ namespace ModusCreate.NewsFeed.Database
 		{
 			return await this.dbContext.FeedEntries.OrderBy(fe => fe.FeedId).OrderByDescending(fe => fe.PublishDate).ToListAsync();
 		}
-	}
+
+        public async Task DeleteSuscription(int id)
+        {
+            var subscription = await this.dbContext.FeedSubscriptions.FindAsync(id);
+            this.dbContext.FeedSubscriptions.Remove(subscription);
+            await this.dbContext.SaveChangesAsync();
+        }
+    }
 }

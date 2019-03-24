@@ -50,5 +50,7 @@ namespace ModusCreate.NewsFeed.Service
 				await this.feedRepository.UpdateFeedEntries(entries);
 			}
 		}
-	}
+
+        public async Task DeleteSubscription(int id) => await this.feedRepository.DeleteSuscription(id);
+    }
 }

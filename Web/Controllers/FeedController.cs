@@ -93,5 +93,12 @@ namespace ModusCreate.NewsFeed.Web.Controllers
 				});
 			}
 		}
-	}
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.feedService.DeleteSubscription(id);
+            return Ok();
+        }
+    }
 }

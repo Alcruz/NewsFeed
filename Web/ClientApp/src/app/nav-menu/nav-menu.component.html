@@ -1,3 +1,4 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <div class='main-nav'>
     <div class='navbar navbar-inverse'>
         <div class='navbar-header'>
@@ -18,8 +19,8 @@
                     </a>
                 </li>
                 <li *ngFor="let subscription of subscriptions" [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/subscription", subscription.id]'>
-                        <span class='glyphicon glyphicon-list-alt'></span> {{subscription.title}}
+                    <a [routerLink]='["/subscription", subscription.id]' (mouseover)="changeIcon($event)" (mouseout)="changeIcon($event)">
+                        <span class='glyphicon glyphicon-list-alt' (click)='remove(subscription.id)'></span> {{subscription.title}}
                     </a>
                 </li>
             </ul>
